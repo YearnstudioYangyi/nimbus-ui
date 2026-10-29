@@ -1,0 +1,270 @@
+/**
+ * Nimbus UI —— 核心设计令牌 (Design Tokens)
+ *
+ * 包含：
+ * - 浅色 (light)
+ * - 深色 (dark)
+ * - 赞助者/特权专属黑金 (gold) 主题
+ * - 圆角、间距、字号、层级与 Material Design 3 级缓动曲线
+ */
+
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  /* —— 表面 —— */
+  --bg: #f0f4f9;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f8fafd;
+  --surface-3: #eef2f8;
+  --surface-inverse: #303134;
+  --on-surface-inverse: #e3e3e3;
+  --scrim: rgba(0, 0, 0, 0.4);
+
+  /* —— 描边 —— */
+  --outline: #dadce0;
+  --outline-soft: #e8eaed;
+  --outline-strong: #bdc1c6;
+
+  /* —— 文字 —— */
+  --text: #1f1f1f;
+  --text-2: #444746;
+  --text-3: #5f6368;
+  --text-disabled: #9aa0a6;
+
+  /* —— 主色 —— */
+  --primary: #0b57d0;
+  --primary-hover: #0847ac;
+  --on-primary: #ffffff;
+  --primary-container: #d3e3fd;
+  --on-primary-container: #041e49;
+  --primary-soft: rgba(11, 87, 208, 0.08);
+
+  /* —— 状态层 —— */
+  --hover: rgba(11, 87, 208, 0.08);
+  --pressed: rgba(11, 87, 208, 0.14);
+  --neutral-hover: rgba(31, 31, 31, 0.06);
+  --neutral-pressed: rgba(31, 31, 31, 0.1);
+  --focus-ring: rgba(11, 87, 208, 0.35);
+
+  /* —— 语义色 —— */
+  --success: #1e7e34;
+  --success-bg: #e6f4ea;
+  --success-fg: #1e7e34;
+  --warning: #b06000;
+  --warning-bg: #fef7e0;
+  --warning-fg: #8a5300;
+  --danger: #b3261e;
+  --danger-bg: #fce8e6;
+  --danger-fg: #b3261e;
+  --info: #0b57d0;
+  --info-bg: #e8f0fe;
+  --info-fg: #0b57d0;
+
+  /* —— 中性 chip —— */
+  --chip: #f1f3f4;
+  --chip-fg: #444746;
+
+  /* —— 阴影 —— */
+  --shadow-1: 0 1px 2px rgba(60, 64, 67, 0.16), 0 1px 3px 1px rgba(60, 64, 67, 0.08);
+  --shadow-2: 0 1px 3px rgba(60, 64, 67, 0.18), 0 4px 8px 3px rgba(60, 64, 67, 0.1);
+  --shadow-3: 0 4px 8px rgba(60, 64, 67, 0.18), 0 12px 24px 6px rgba(60, 64, 67, 0.12);
+
+  /* —— 数据可视化 —— */
+  --viz-1: #4285f4;
+  --viz-2: #7b5cf0;
+  --viz-3: #12a37e;
+  --viz-4: #d96c1f;
+  --viz-5: #c5407e;
+  --viz-6: #5f7d95;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #131314;
+  --bg-elevated: #1e1f20;
+  --surface: #1e1f20;
+  --surface-2: #282a2c;
+  --surface-3: #303134;
+  --surface-inverse: #e3e3e3;
+  --on-surface-inverse: #1f1f1f;
+  --scrim: rgba(0, 0, 0, 0.6);
+
+  --outline: #444746;
+  --outline-soft: #2d2f31;
+  --outline-strong: #5f6368;
+
+  --text: #e3e3e3;
+  --text-2: #c4c7c5;
+  --text-3: #9aa0a6;
+  --text-disabled: #5f6368;
+
+  --primary: #a8c7fa;
+  --primary-hover: #c2d9fd;
+  --on-primary: #062e6f;
+  --primary-container: #0842a0;
+  --on-primary-container: #d3e3fd;
+  --primary-soft: rgba(168, 199, 250, 0.12);
+
+  --hover: rgba(168, 199, 250, 0.12);
+  --pressed: rgba(168, 199, 250, 0.2);
+  --neutral-hover: rgba(227, 227, 227, 0.08);
+  --neutral-pressed: rgba(227, 227, 227, 0.14);
+  --focus-ring: rgba(168, 199, 250, 0.45);
+
+  --success: #6dd58c;
+  --success-bg: #14342a;
+  --success-fg: #6dd58c;
+  --warning: #f7bd6b;
+  --warning-bg: #3a2c10;
+  --warning-fg: #f7bd6b;
+  --danger: #f2b8b5;
+  --danger-bg: #3b1f1d;
+  --danger-fg: #f2b8b5;
+  --info: #a8c7fa;
+  --info-bg: #1b2b42;
+  --info-fg: #a8c7fa;
+
+  --chip: #282a2c;
+  --chip-fg: #c4c7c5;
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 3px 1px rgba(0, 0, 0, 0.3);
+  --shadow-2: 0 1px 3px rgba(0, 0, 0, 0.55), 0 4px 8px 3px rgba(0, 0, 0, 0.35);
+  --shadow-3: 0 4px 8px rgba(0, 0, 0, 0.6), 0 12px 24px 6px rgba(0, 0, 0, 0.4);
+
+  --viz-1: #8ab4f8;
+  --viz-2: #b39ff7;
+  --viz-3: #5cd6b0;
+  --viz-4: #f7a45c;
+  --viz-5: #f08bb4;
+  --viz-6: #9fb4c4;
+}
+
+:root[data-theme="gold"] {
+  color-scheme: dark;
+
+  /* —— 黑金表面：中性偏冷，无浊黄 tint —— */
+  --bg: #151518;
+  --bg-elevated: #1e1e22;
+  --surface: #1e1e22;
+  --surface-2: #282830;
+  --surface-3: #33333b;
+  --surface-inverse: #f7f6f4;
+  --on-surface-inverse: #1e1e22;
+  --scrim: rgba(0, 0, 0, 0.66);
+
+  --outline: rgba(255, 255, 255, 0.1);
+  --outline-soft: rgba(255, 255, 255, 0.06);
+  --outline-strong: rgba(255, 255, 255, 0.16);
+
+  --text: #f7f6f4;
+  --text-2: #bdb8b2;
+  --text-3: #9e968e;
+  --text-disabled: #6e6862;
+
+  --primary: #d9c48c;
+  --primary-hover: #ebdcb4;
+  --on-primary: #1b1710;
+  --primary-container: rgba(217, 196, 140, 0.1);
+  --on-primary-container: #ebdcb4;
+  --primary-soft: rgba(217, 196, 140, 0.16);
+
+  --hover: rgba(217, 196, 140, 0.1);
+  --pressed: rgba(217, 196, 140, 0.16);
+  --neutral-hover: rgba(255, 255, 255, 0.06);
+  --neutral-pressed: rgba(255, 255, 255, 0.1);
+  --focus-ring: rgba(217, 196, 140, 0.55);
+
+  --success: #8fcfa4;
+  --success-bg: rgba(143, 207, 164, 0.1);
+  --success-fg: #8fcfa4;
+  --warning: #d9c48c;
+  --warning-bg: rgba(217, 196, 140, 0.1);
+  --warning-fg: #ebdcb4;
+  --danger: #e5a09b;
+  --danger-bg: rgba(229, 160, 155, 0.1);
+  --danger-fg: #e5a09b;
+  --info: #9ec6dc;
+  --info-bg: rgba(158, 198, 220, 0.1);
+  --info-fg: #9ec6dc;
+
+  --chip: #282830;
+  --chip-fg: #bdb8b2;
+
+  --shadow-1: none;
+  --shadow-2: none;
+  --shadow-3: 0 8px 28px rgba(0, 0, 0, 0.7);
+
+  --viz-1: #d9c48c;
+  --viz-2: #9ec6dc;
+  --viz-3: #8fcfa4;
+  --viz-4: #bdb8b2;
+  --viz-5: #e5a09b;
+  --viz-6: #9e968e;
+}
+
+:root {
+  /* —— 圆角 —— */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 16px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-full: 999px;
+
+  /* —— 间距 —— */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+
+  /* —— 字号 —— */
+  --fs-xs: 11.5px;
+  --fs-sm: 12.5px;
+  --fs-base: 14px;
+  --fs-md: 15px;
+  --fs-lg: 16px;
+  --fs-xl: 20px;
+  --fs-2xl: 24px;
+  --fs-3xl: 30px;
+
+  /* —— 字体族 —— */
+  --font-sans: "Google Sans", Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* —— 布局基准 —— */
+  --rail-w: 260px;
+  --rail-w-collapsed: 76px;
+  --topbar-h: 64px;
+  --content-max: 1180px;
+
+  /* —— 动效系统：Material 3 减速与强调曲线 —— */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 0.12s;
+  --dur: 0.2s;
+  --dur-slow: 0.3s;
+
+  /* —— 层级 —— */
+  --z-rail: 30;
+  --z-topbar: 40;
+  --z-scrim: 50;
+  --z-dialog: 60;
+  --z-confirm: 65;
+  --z-toast: 70;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0.01ms;
+    --dur: 0.01ms;
+    --dur-slow: 0.01ms;
+  }
+}

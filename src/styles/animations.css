@@ -1,0 +1,425 @@
+/**
+ * Nimbus UI —— 核心动效与微交互 (Animations & Keyframes)
+ */
+
+/* ==================== 旋转指示器 ==================== */
+@keyframes sc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==================== 骨架屏扫光 (Shimmer) ==================== */
+@keyframes sc-shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+/* ==================== 全局无限循环平滑进度条 ==================== */
+@keyframes sc-indeterminate {
+  0% {
+    transform: translateX(-100%) scaleX(0.4);
+  }
+  60% {
+    transform: translateX(40%) scaleX(0.7);
+  }
+  100% {
+    transform: translateX(100%) scaleX(0.4);
+  }
+}
+
+/* ==================== 遮罩淡入 ==================== */
+@keyframes sc-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ==================== 视图 / 页面平滑切替 (View Transition) ==================== */
+.sc-view {
+  width: 100%;
+}
+
+.sc-view-enter-active {
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.sc-view-leave-active {
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.sc-view-enter-from {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.sc-view-leave-to {
+  opacity: 0;
+}
+
+.sc-view-in {
+  animation: sc-view-in var(--dur-slow) var(--ease);
+}
+
+@keyframes sc-view-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==================== 侧边菜单级联渐进动效 (Staggered Item-in) ==================== */
+.sc-rail-item-in {
+  animation: rail-item-in var(--dur-slow) var(--ease) both;
+}
+
+.sc-rail-item-in--back {
+  animation: rail-item-in-back var(--dur-slow) var(--ease) both;
+}
+
+@keyframes rail-item-in {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rail-item-in-back {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 阶梯延迟 */
+.sc-stagger-1 { animation-delay: 0ms; }
+.sc-stagger-2 { animation-delay: 25ms; }
+.sc-stagger-3 { animation-delay: 50ms; }
+.sc-stagger-4 { animation-delay: 75ms; }
+.sc-stagger-5 { animation-delay: 100ms; }
+.sc-stagger-6 { animation-delay: 125ms; }
+.sc-stagger-7 { animation-delay: 150ms; }
+.sc-stagger-8 { animation-delay: 175ms; }
+
+/* ==================== 对话框 Transition 动画 ==================== */
+.sc-dialog-enter-active,
+.sc-dialog-leave-active {
+  transition: opacity var(--dur) var(--ease);
+}
+
+.sc-dialog-enter-active .sc-dialog,
+.sc-dialog-leave-active .sc-dialog {
+  transition: transform var(--dur-slow) var(--ease), opacity var(--dur) var(--ease);
+}
+
+.sc-dialog-enter-from,
+.sc-dialog-leave-to {
+  opacity: 0;
+}
+
+.sc-dialog-enter-from .sc-dialog,
+.sc-dialog-leave-to .sc-dialog {
+  opacity: 0;
+  transform: scale(0.96) translateY(8px);
+}
+
+/* ==================== 抽屉 (Drawer) Transition 动画 ==================== */
+.sc-drawer-right-enter-active,
+.sc-drawer-right-leave-active,
+.sc-drawer-left-enter-active,
+.sc-drawer-left-leave-active,
+.sc-drawer-bottom-enter-active,
+.sc-drawer-bottom-leave-active {
+  transition: opacity var(--dur-slow) var(--ease);
+}
+
+.sc-drawer-right-enter-active .sc-scrim,
+.sc-drawer-right-leave-active .sc-scrim,
+.sc-drawer-left-enter-active .sc-scrim,
+.sc-drawer-left-leave-active .sc-scrim,
+.sc-drawer-bottom-enter-active .sc-scrim,
+.sc-drawer-bottom-leave-active .sc-scrim {
+  transition: opacity var(--dur) var(--ease);
+}
+
+.sc-drawer-right-enter-from .sc-scrim,
+.sc-drawer-right-leave-to .sc-scrim,
+.sc-drawer-left-enter-from .sc-scrim,
+.sc-drawer-left-leave-to .sc-scrim,
+.sc-drawer-bottom-enter-from .sc-scrim,
+.sc-drawer-bottom-leave-to .sc-scrim {
+  opacity: 0;
+}
+
+.sc-drawer-right-enter-active .sc-drawer,
+.sc-drawer-right-leave-active .sc-drawer,
+.sc-drawer-left-enter-active .sc-drawer,
+.sc-drawer-left-leave-active .sc-drawer,
+.sc-drawer-bottom-enter-active .sc-drawer,
+.sc-drawer-bottom-leave-active .sc-drawer {
+  transition: transform var(--dur-slow) var(--ease);
+}
+
+.sc-drawer-right-enter-from .sc-drawer,
+.sc-drawer-right-leave-to .sc-drawer {
+  transform: translateX(100%);
+}
+
+.sc-drawer-left-enter-from .sc-drawer,
+.sc-drawer-left-leave-to .sc-drawer {
+  transform: translateX(-100%);
+}
+
+.sc-drawer-bottom-enter-from .sc-drawer,
+.sc-drawer-bottom-leave-to .sc-drawer {
+  transform: translateY(100%);
+}
+
+/* ==================== 下拉菜单 Transition 动画 ==================== */
+.sc-dropdown-fade-enter-active,
+.sc-dropdown-fade-leave-active {
+  transition:
+    opacity var(--dur-fast) var(--ease),
+    transform var(--dur) var(--ease);
+  transform-origin: top right;
+}
+
+.sc-dropdown-fade-enter-from,
+.sc-dropdown-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.96) translateY(-4px);
+}
+
+/* ==================== Toast Transition 动画 ==================== */
+/* 基础兼容动效 */
+.sc-toast-enter-active,
+.sc-toast-leave-active {
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.sc-toast-enter-from,
+.sc-toast-leave-to {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+/* 多位置 Toast 专属物理平滑滑入与滑出屏幕动效 */
+
+/* 1. Top-Center: 从上方滑入，退出时向上滑出屏幕 */
+.sc-toast-anim-top-center-enter-active {
+  transition:
+    transform 340ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 280ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.sc-toast-anim-top-center-leave-active {
+  position: absolute !important;
+  pointer-events: none !important;
+  transition:
+    transform 340ms cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 280ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.sc-toast-anim-top-center-enter-from {
+  opacity: 0 !important;
+  transform: translateY(calc(-100% - 36px)) scale(0.96) !important;
+}
+.sc-toast-anim-top-center-enter-to,
+.sc-toast-anim-top-center-leave-from {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+.sc-toast-anim-top-center-leave-to {
+  opacity: 0 !important;
+  transform: translateY(calc(-100% - 48px)) scale(0.94) !important;
+}
+.sc-toast-anim-top-center-move {
+  transition: transform 340ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 2. Bottom-Center: 从下方滑入，退出时向下滑出屏幕 */
+.sc-toast-anim-bottom-center-enter-active {
+  transition:
+    transform 340ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 280ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.sc-toast-anim-bottom-center-leave-active {
+  position: absolute !important;
+  pointer-events: none !important;
+  transition:
+    transform 340ms cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 280ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.sc-toast-anim-bottom-center-enter-from {
+  opacity: 0 !important;
+  transform: translateY(calc(100% + 36px)) scale(0.96) !important;
+}
+.sc-toast-anim-bottom-center-enter-to,
+.sc-toast-anim-bottom-center-leave-from {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+.sc-toast-anim-bottom-center-leave-to {
+  opacity: 0 !important;
+  transform: translateY(calc(100% + 48px)) scale(0.94) !important;
+}
+.sc-toast-anim-bottom-center-move {
+  transition: transform 340ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 3. Top-Right: 从右侧滑入，退出时向右平滑滑出屏幕 */
+.sc-toast-anim-top-right-enter-active {
+  transition:
+    transform 340ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 280ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.sc-toast-anim-top-right-leave-active {
+  position: absolute !important;
+  pointer-events: none !important;
+  transition:
+    transform 340ms cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 280ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.sc-toast-anim-top-right-enter-from {
+  opacity: 0 !important;
+  transform: translateX(calc(100% + 36px)) scale(0.96) !important;
+}
+.sc-toast-anim-top-right-enter-to,
+.sc-toast-anim-top-right-leave-from {
+  opacity: 1 !important;
+  transform: translateX(0) scale(1) !important;
+}
+.sc-toast-anim-top-right-leave-to {
+  opacity: 0 !important;
+  transform: translateX(calc(100% + 64px)) scale(0.94) !important;
+}
+.sc-toast-anim-top-right-move {
+  transition: transform 340ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 4. Bottom-Right: 从右侧滑入，退出时向右平滑滑出屏幕 */
+.sc-toast-anim-bottom-right-enter-active {
+  transition:
+    transform 340ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 280ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.sc-toast-anim-bottom-right-leave-active {
+  position: absolute !important;
+  pointer-events: none !important;
+  transition:
+    transform 340ms cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 280ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.sc-toast-anim-bottom-right-enter-from {
+  opacity: 0 !important;
+  transform: translateX(calc(100% + 36px)) scale(0.96) !important;
+}
+.sc-toast-anim-bottom-right-enter-to,
+.sc-toast-anim-bottom-right-leave-from {
+  opacity: 1 !important;
+  transform: translateX(0) scale(1) !important;
+}
+.sc-toast-anim-bottom-right-leave-to {
+  opacity: 0 !important;
+  transform: translateX(calc(100% + 64px)) scale(0.94) !important;
+}
+.sc-toast-anim-bottom-right-move {
+  transition: transform 340ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==================== 渐变淡入 Transition ==================== */
+.sc-fade-enter-active,
+.sc-fade-leave-active {
+  transition: opacity var(--dur) var(--ease);
+}
+.sc-fade-enter-from,
+.sc-fade-leave-to {
+  opacity: 0;
+}
+
+/* ==================== 水波纹 (Ripple) ==================== */
+.sc-ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background-color: currentColor;
+  opacity: 0.16;
+  transform: scale(0);
+  animation: sc-ripple-spread 0.4s var(--ease) forwards;
+}
+
+.sc-ripple--leave {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+@keyframes sc-ripple-spread {
+  to {
+    transform: scale(1);
+  }
+}
+
+/* 减少动效模式 */
+@media (prefers-reduced-motion: reduce) {
+  .sc-view,
+  .sc-view-in,
+  .sc-view-enter-active,
+  .sc-view-leave-active,
+  .sc-rail-item-in,
+  .sc-rail-item-in--back,
+  .sc-dialog-enter-active,
+  .sc-dialog-leave-active,
+  .sc-dialog-enter-active .sc-dialog,
+  .sc-dialog-leave-active .sc-dialog,
+  .sc-drawer-right-enter-active,
+  .sc-drawer-right-leave-active,
+  .sc-drawer-left-enter-active,
+  .sc-drawer-left-leave-active,
+  .sc-drawer-bottom-enter-active,
+  .sc-drawer-bottom-leave-active,
+  .sc-drawer-right-enter-active .sc-drawer,
+  .sc-drawer-right-leave-active .sc-drawer,
+  .sc-drawer-left-enter-active .sc-drawer,
+  .sc-drawer-left-leave-active .sc-drawer,
+  .sc-drawer-bottom-enter-active .sc-drawer,
+  .sc-drawer-bottom-leave-active .sc-drawer,
+  .sc-drawer-right-enter-active .sc-scrim,
+  .sc-drawer-right-leave-active .sc-scrim,
+  .sc-drawer-left-enter-active .sc-scrim,
+  .sc-drawer-left-leave-active .sc-scrim,
+  .sc-drawer-bottom-enter-active .sc-scrim,
+  .sc-drawer-bottom-leave-active .sc-scrim,
+  .sc-dropdown-fade-enter-active,
+  .sc-dropdown-fade-leave-active,
+  .sc-toast-enter-active,
+  .sc-toast-leave-active,
+  .sc-toast-anim-top-center-enter-active,
+  .sc-toast-anim-top-center-leave-active,
+  .sc-toast-anim-bottom-center-enter-active,
+  .sc-toast-anim-bottom-center-leave-active,
+  .sc-toast-anim-top-right-enter-active,
+  .sc-toast-anim-top-right-leave-active,
+  .sc-toast-anim-bottom-right-enter-active,
+  .sc-toast-anim-bottom-right-leave-active {
+    animation: none !important;
+    transition: opacity 150ms ease !important;
+    transform: none !important;
+  }
+}

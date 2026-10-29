@@ -1,0 +1,482 @@
+/**
+ * Nimbus UI —— 布局与弹层外壳样式
+ */
+
+/* ==================== 侧边导航与抽屉 (SideRail & Nav) ==================== */
+.sc-rail {
+  display: flex;
+  flex-direction: column;
+  width: var(--rail-w);
+  background: var(--bg);
+  transition: width var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
+  box-sizing: border-box;
+}
+
+.sc-rail--collapsed {
+  width: var(--rail-w-collapsed);
+}
+
+.sc-rail__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  height: var(--topbar-h);
+  padding: 0 var(--sp-4) 0 var(--sp-5);
+  flex: none;
+  color: var(--text);
+  font-size: var(--fs-xl);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.sc-rail--collapsed .sc-rail__brand {
+  padding: 0;
+  justify-content: center;
+}
+
+.sc-rail__logo {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-xs);
+  object-fit: cover;
+}
+
+.sc-rail__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--sp-2) var(--sp-3) var(--sp-4);
+}
+
+.sc-rail__group + .sc-rail__group {
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--outline-soft);
+}
+
+.sc-rail__group-label {
+  padding: var(--sp-2) var(--sp-4);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sc-rail--collapsed .sc-rail__group-label,
+.sc-rail--collapsed .sc-rail__brand-text {
+  display: none;
+}
+
+.sc-nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  height: 44px;
+  padding: 0 var(--sp-4);
+  margin-bottom: 2px;
+  border-radius: var(--r-full);
+  color: var(--text-2);
+  font-size: var(--fs-base);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  border: 0;
+  background: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.sc-nav-item:hover {
+  background: var(--neutral-hover);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.sc-nav-item.is-active {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+.sc-nav-item__icon {
+  flex: none;
+  width: 20px;
+  font-size: 18px;
+  text-align: center;
+  line-height: 1;
+}
+
+.sc-nav-item__label {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sc-nav-item__trail {
+  flex: none;
+}
+
+.sc-rail--collapsed .sc-nav-item {
+  justify-content: center;
+  padding: 0;
+  width: 52px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sc-rail--collapsed .sc-nav-item__label,
+.sc-rail--collapsed .sc-nav-item__trail {
+  display: none;
+}
+
+.sc-rail__foot {
+  flex: none;
+  padding: 0 var(--sp-3) var(--sp-3);
+}
+
+/* 黑金主题侧边栏选中态 */
+:root[data-theme="gold"] .sc-nav-item.is-active {
+  box-shadow: inset 0 0 0 1px rgba(217, 196, 140, 0.32);
+}
+
+/* ==================== 抽屉遮罩 (Scrim) ==================== */
+.sc-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-scrim);
+  background: var(--scrim);
+  border: 0;
+  padding: 0;
+}
+
+/* ==================== Toast (消息提示框) ==================== */
+.sc-toasts {
+  position: fixed;
+  left: 50%;
+  bottom: var(--sp-6);
+  transform: translateX(-50%);
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: var(--sp-2);
+  width: min(480px, calc(100vw - 32px));
+  pointer-events: none;
+}
+
+.sc-toast {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-sm);
+  background: var(--surface-inverse);
+  color: var(--on-surface-inverse);
+  font-size: var(--fs-base);
+  box-shadow: var(--shadow-3);
+  pointer-events: auto;
+  box-sizing: border-box;
+  cursor: default;
+  border: 1px solid transparent;
+  will-change: transform, opacity, box-shadow;
+}
+
+/* 仅在常态非动画插值期应用悬停微交互平滑过渡 */
+.sc-toast:not([class*="-enter-active"]):not([class*="-leave-active"]) {
+  transition:
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.22s ease,
+    background-color 0.22s ease;
+}
+
+/* 悬停微交互与物理触感反馈 */
+.sc-toast:hover {
+  transform: translateY(-2px) scale(1.012);
+  box-shadow:
+    0 10px 24px -4px rgba(0, 0, 0, 0.32),
+    0 2px 6px rgba(0, 0, 0, 0.16),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.sc-toast > i {
+  font-size: 17px;
+  flex: none;
+  transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.sc-toast:hover > i {
+  transform: scale(1.15);
+}
+
+/* 状态色彩与悬停微光反馈 */
+.sc-toast--success > i {
+  color: #6dd58c;
+}
+.sc-toast--success:hover {
+  border-color: rgba(109, 213, 140, 0.35);
+  box-shadow:
+    0 12px 28px -4px rgba(0, 0, 0, 0.36),
+    0 0 0 1px rgba(109, 213, 140, 0.3);
+}
+
+.sc-toast--error > i {
+  color: #f2b8b5;
+}
+.sc-toast--error:hover {
+  border-color: rgba(242, 184, 181, 0.35);
+  box-shadow:
+    0 12px 28px -4px rgba(0, 0, 0, 0.36),
+    0 0 0 1px rgba(242, 184, 181, 0.3);
+}
+
+.sc-toast--warning > i {
+  color: #f6ad55;
+}
+.sc-toast--warning:hover {
+  border-color: rgba(246, 173, 85, 0.35);
+  box-shadow:
+    0 12px 28px -4px rgba(0, 0, 0, 0.36),
+    0 0 0 1px rgba(246, 173, 85, 0.3);
+}
+
+.sc-toast--info > i {
+  color: var(--info);
+}
+.sc-toast--info:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow:
+    0 12px 28px -4px rgba(0, 0, 0, 0.36),
+    0 0 0 1px rgba(56, 189, 248, 0.3);
+}
+
+.sc-toast__msg {
+  flex: 1;
+  min-width: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.45;
+}
+
+.sc-toast__close {
+  flex: none;
+  border: 0;
+  background: none;
+  color: inherit;
+  opacity: 0.65;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 4px;
+  border-radius: var(--r-full);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
+}
+
+.sc-toast:hover .sc-toast__close {
+  opacity: 0.85;
+}
+
+.sc-toast__close:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(1.1);
+}
+
+/* 主题适配 */
+:root[data-theme="gold"] .sc-toast {
+  background: var(--surface-3);
+  color: var(--text);
+  border-color: rgba(212, 175, 55, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), var(--shadow-3);
+}
+
+:root[data-theme="gold"] .sc-toast:hover {
+  border-color: var(--primary-border);
+  box-shadow:
+    0 12px 30px -4px rgba(0, 0, 0, 0.6),
+    0 0 16px -2px rgba(212, 175, 55, 0.25),
+    inset 0 0 0 1px rgba(212, 175, 55, 0.3);
+}
+
+:root[data-theme="gold"] .sc-toast--success > i {
+  color: var(--success);
+}
+:root[data-theme="gold"] .sc-toast--error > i {
+  color: var(--danger);
+}
+:root[data-theme="gold"] .sc-toast--warning > i {
+  color: var(--warning);
+}
+:root[data-theme="gold"] .sc-toast__close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .sc-toast {
+  background: var(--surface-3);
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow-3);
+}
+
+:root[data-theme="dark"] .sc-toast:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 12px 30px -4px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+:root[data-theme="dark"] .sc-toast--success > i {
+  color: #4ade80;
+}
+:root[data-theme="dark"] .sc-toast--error > i {
+  color: #f87171;
+}
+:root[data-theme="dark"] .sc-toast--warning > i {
+  color: #fbbf24;
+}
+:root[data-theme="dark"] .sc-toast__close:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ==================== 模态对话框 (Modal & Dialog) ==================== */
+.sc-dialog-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-dialog);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+  background: var(--scrim);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.sc-dialog-scrim--confirm {
+  z-index: var(--z-confirm);
+}
+
+.sc-dialog {
+  width: 100%;
+  max-width: 480px;
+  margin: auto;
+  padding: var(--sp-6);
+  border-radius: var(--r-xl);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-3);
+  box-sizing: border-box;
+  border: 1px solid var(--outline-soft);
+}
+
+.sc-dialog--wide {
+  max-width: 720px;
+}
+
+.sc-dialog__title {
+  margin: 0 0 var(--sp-3);
+  font-size: var(--fs-xl);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.sc-dialog__body {
+  font-size: var(--fs-base);
+  color: var(--text-2);
+}
+
+.sc-dialog__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-2);
+  margin-top: var(--sp-6);
+  flex-wrap: wrap;
+}
+
+/* ==================== 页面头部 (Page Header & Crumbs) ==================== */
+.sc-page-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-6);
+  flex-wrap: wrap;
+}
+
+.sc-page-head__title {
+  margin: 0;
+  font-size: var(--fs-2xl);
+  font-weight: 400;
+  color: var(--text);
+}
+
+.sc-page-head__desc {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-base);
+  color: var(--text-3);
+  max-width: 68ch;
+}
+
+.sc-page-head__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .sc-page-head {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--sp-3);
+  }
+
+  .sc-page-head__title {
+    font-size: var(--fs-xl);
+    word-break: break-word;
+  }
+
+  .sc-page-head__desc {
+    font-size: var(--fs-sm);
+  }
+
+  .sc-page-head__actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+.sc-crumbs {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--text-3);
+  flex-wrap: wrap;
+}
+
+.sc-crumbs a {
+  color: var(--text-3);
+  text-decoration: none;
+}
+
+.sc-crumbs a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}

@@ -1,0 +1,70 @@
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (模拟打包校验，不实际发布至 npm)"
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Build & Publish to npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # 关键：生成 OIDC 凭证以实现 npm 可信发布 (Trusted Publishing) 与 Provenance 密码级构建溯源
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Typecheck
+        run: pnpm typecheck
+
+      - name: Build package
+        run: pnpm build
+
+      - name: Verify build artifacts
+        run: |
+          test -f dist/nimbus-ui.js || (echo "Error: dist/nimbus-ui.js missing" && exit 1)
+          test -f dist/style.css || (echo "Error: dist/style.css missing" && exit 1)
+          test -f dist/index.d.ts || (echo "Error: dist/index.d.ts missing" && exit 1)
+          echo "All distribution artifacts verified."
+
+      - name: Dry Run Publish
+        if: ${{ inputs.dry_run == true }}
+        run: pnpm publish --dry-run --no-git-checks
+
+      - name: Publish to npm (Trusted Publishing / Provenance)
+        if: ${{ inputs.dry_run != true }}
+        run: pnpm publish --access public --no-git-checks --provenance
+        env:
+          # 1. 若在 npm 启用了 Trusted Publishing (OIDC)，npm 将通过 id-token 直接免密钥发布
+          # 2. 若使用经典 Token 模式，也可在 GitHub Secrets 中配置 NPM_TOKEN
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
