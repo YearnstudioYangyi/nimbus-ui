@@ -1,6 +1,6 @@
 {
   "name": "@yearnstudioyangyi/nimbus-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Nimbus UI - Next Design System & Motion Component Library for Vue 3",
   "packageManager": "pnpm@9.15.4",
   "type": "module",
