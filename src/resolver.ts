@@ -19,7 +19,7 @@ export type ShangCloudUIResolverOptions = NimbusUIResolverOptions;
  * ```ts
  * // vite.config.ts
  * import Components from 'unplugin-vue-components/vite'
- * import { NimbusUIResolver } from 'nimbus-ui'
+ * import { NimbusUIResolver } from '@yearnstudioyangyi/nimbus-ui'
  *
  * export default defineConfig({
  *   plugins: [
@@ -43,8 +43,8 @@ export function NimbusUIResolver(options: NimbusUIResolverOptions = {}) {
       if (isMatched) {
         return {
           name,
-          from: "nimbus-ui",
-          sideEffects: importStyle ? "nimbus-ui/style.css" : undefined
+          from: "@yearnstudioyangyi/nimbus-ui",
+          sideEffects: importStyle ? "@yearnstudioyangyi/nimbus-ui/style.css" : undefined
         };
       }
       return undefined;

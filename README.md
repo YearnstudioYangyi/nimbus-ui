@@ -66,13 +66,13 @@
 
 ```bash
 # 使用 pnpm（推荐）
-pnpm add nimbus-ui bootstrap-icons
+pnpm add @yearnstudioyangyi/nimbus-ui bootstrap-icons
 
 # 或使用 npm
-npm install nimbus-ui bootstrap-icons
+npm install @yearnstudioyangyi/nimbus-ui bootstrap-icons
 
 # 或使用 yarn
-yarn add nimbus-ui bootstrap-icons
+yarn add @yearnstudioyangyi/nimbus-ui bootstrap-icons
 ```
 
 > **提示**：组件库内置图标依赖于 [Bootstrap Icons](https://icons.getbootstrap.com/) 图标类名（如 `bi bi-check`）。在项目中引入 Bootstrap Icons 字体样式即可完整显示组件内置图标：
@@ -93,8 +93,8 @@ yarn add nimbus-ui bootstrap-icons
 // main.ts
 import { createApp } from "vue";
 import App from "./App.vue";
-import NimbusUI from "nimbus-ui";
-import "nimbus-ui/style.css";
+import NimbusUI from "@yearnstudioyangyi/nimbus-ui";
+import "@yearnstudioyangyi/nimbus-ui/style.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const app = createApp(App);
@@ -143,7 +143,7 @@ pnpm add -D unplugin-vue-components
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import Components from "unplugin-vue-components/vite";
-import { NimbusUIResolver } from "nimbus-ui";
+import { NimbusUIResolver } from "@yearnstudioyangyi/nimbus-ui";
 
 export default defineConfig({
   plugins: [
@@ -168,8 +168,8 @@ export default defineConfig({
 
 ```vue
 <script setup lang="ts">
-import { NbButton, NbDrawer, useToast } from "nimbus-ui";
-import "nimbus-ui/style.css";
+import { NbButton, NbDrawer, useToast } from "@yearnstudioyangyi/nimbus-ui";
+import "@yearnstudioyangyi/nimbus-ui/style.css";
 
 const { toast } = useToast();
 </script>
@@ -197,7 +197,7 @@ Nimbus UI 原生支持四种配置模式：
 ```vue
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { useTheme } from "nimbus-ui";
+import { useTheme } from "@yearnstudioyangyi/nimbus-ui";
 
 const { theme, mode, setTheme, cycleTheme, initTheme } = useTheme();
 
@@ -256,7 +256,7 @@ Nimbus UI 秉持现代组件库的极简无侵入设计原则，不生硬捆绑�
 ```vue
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { ScSelect, ScTable, ScConfirmDialog, useConfirm } from "nimbus-ui";
+import { ScSelect, ScTable, ScConfirmDialog, useConfirm } from "@yearnstudioyangyi/nimbus-ui";
 
 const { t } = useI18n();
 const { confirm } = useConfirm();
@@ -304,7 +304,7 @@ async function handleAction() {
 在任意业务组件或函数中使用：
 
 ```ts
-import { useToast } from "nimbus-ui";
+import { useToast } from "@yearnstudioyangyi/nimbus-ui";
 
 const { toast } = useToast();
 
@@ -333,7 +333,7 @@ toast.error("网络连接异常，请检查配置");
 ```
 
 ```ts
-import { useConfirm, useToast } from "nimbus-ui";
+import { useConfirm, useToast } from "@yearnstudioyangyi/nimbus-ui";
 
 const { confirm } = useConfirm();
 const { toast } = useToast();
@@ -373,7 +373,7 @@ async function handleDeleteApp(appName: string) {
 
 ```ts
 import { defineAsyncComponent, h } from "vue";
-import { ScLoading, useLoading } from "nimbus-ui";
+import { ScLoading, useLoading } from "@yearnstudioyangyi/nimbus-ui";
 
 // 1. 配合 Vue 3 异步组件懒加载 (超过 200ms 自动弹出全屏 Loading)
 const AsyncHeavyChart = defineAsyncComponent({
@@ -496,7 +496,7 @@ import {
   formatDate,
   hashHue,
   initials,
-} from "nimbus-ui";
+} from "@yearnstudioyangyi/nimbus-ui";
 
 // 1. 剪贴板安全复制（自动降级支持）
 await copyText("sk-prod-983274918237498");
